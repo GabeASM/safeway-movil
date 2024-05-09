@@ -83,24 +83,27 @@ class _EventFormState extends State<EventForm> {
               text: 'Categoría',
             ),
             Center(
-              child: SizedBox(
+              child: Container(
                 width: 300,
                 height: 60,
+                decoration: BoxDecoration(
+                    border: Border.all(color: borderColor),
+                    borderRadius: BorderRadius.circular(10)),
                 child: DropdownButton(
                   isExpanded: true,
-                  itemHeight: 50,
+                  itemHeight: 60,
                   underline: Container(
                     height: 1,
-                    color: Colors.blue,
+                    color: Colors.transparent,
                   ),
                   items: categoryList.map((String value) {
                     return DropdownMenuItem(
                       value: value,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
+                      child: ListTile(
+                        title: Text(
                           value,
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(fontSize: 16),
                         ),
                       ),
                     );
