@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -124,11 +125,23 @@ class _EventFormState extends State<EventForm> {
               child: SizedBox(
                 width: 300,
                 child: TextField(
+                  textAlign: TextAlign.center,
+                  textAlignVertical: TextAlignVertical.top,
+                  maxLines: 4,
                   controller: _controller,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
+                      hintText: 'Ingresa detalles del evento',
+                      hintStyle: const TextStyle(
+                        fontStyle: FontStyle.italic,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 25, horizontal: 10),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0))),
+                          borderRadius: BorderRadius.circular(10.0)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(color: borderColor))),
                 ),
               ),
             ),
