@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:safeway/events/widgets/labels.dart';
@@ -61,13 +59,16 @@ class _EventFormState extends State<EventForm> {
                     width: 300,
                     height: 300,
                     decoration: BoxDecoration(
+                        color: Colors.grey[200],
                         border: Border.all(),
                         borderRadius: BorderRadius.circular(10)),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: _image == null
                           ? const Center(
-                              child: Text('No se ha proporcionado una imagen'),
+                              child: Text(
+                                'No se ha proporcionado una imagen',
+                              ),
                             )
                           : Image.file(
                               _image!,
@@ -88,6 +89,7 @@ class _EventFormState extends State<EventForm> {
                 width: 300,
                 height: 60,
                 decoration: BoxDecoration(
+                    color: Colors.grey[200],
                     border: Border.all(color: borderColor),
                     borderRadius: BorderRadius.circular(10)),
                 child: DropdownButton(
@@ -131,6 +133,8 @@ class _EventFormState extends State<EventForm> {
                   controller: _controller,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[200],
                       hintText: 'Ingresa detalles del evento',
                       hintStyle: const TextStyle(
                         fontStyle: FontStyle.italic,
@@ -151,6 +155,7 @@ class _EventFormState extends State<EventForm> {
             Center(
               child: SizedBox(
                 width: 300,
+                height: 60,
                 child: TextButton(
                   style: ButtonStyle(
                     backgroundColor:

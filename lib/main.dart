@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safeway/events/screens/event_register.dart';
+import 'package:safeway/landing/screens/lading_screen.dart';
 
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:meals_app/screens/tabs.dart';
@@ -24,6 +25,6 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
         // theme: theme,
-        home: EventForm());
+        home: LandingScreen());
   }
 }
