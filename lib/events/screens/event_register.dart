@@ -16,7 +16,6 @@ class _EventFormState extends State<EventForm> {
   final picker = ImagePicker();
   final TextEditingController _controller = TextEditingController();
   final Color customColor = const Color(0xFF52B0A5);
-  final Color borderColor = const Color(0xFF3C3C43);
 
   var categoryList = ['categoria 1', 'categoria 2', 'categoria 3'];
 
@@ -60,7 +59,7 @@ class _EventFormState extends State<EventForm> {
                     height: 300,
                     decoration: BoxDecoration(
                         color: Colors.grey[200],
-                        border: Border.all(),
+                        border: Border.all(color: Colors.transparent),
                         borderRadius: BorderRadius.circular(10)),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
@@ -90,7 +89,7 @@ class _EventFormState extends State<EventForm> {
                 height: 60,
                 decoration: BoxDecoration(
                     color: Colors.grey[200],
-                    border: Border.all(color: borderColor),
+                    border: Border.all(color: Colors.transparent),
                     borderRadius: BorderRadius.circular(10)),
                 child: DropdownButton(
                   isExpanded: true,
@@ -141,11 +140,14 @@ class _EventFormState extends State<EventForm> {
                       ),
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 25, horizontal: 10),
-                      border: OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.transparent),
                           borderRadius: BorderRadius.circular(10.0)),
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(color: borderColor))),
+                          borderSide:
+                              const BorderSide(color: Colors.transparent))),
                 ),
               ),
             ),
@@ -163,21 +165,21 @@ class _EventFormState extends State<EventForm> {
                     shape: MaterialStateProperty.all<OutlinedBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
-                            10.0), // Ajusta el radio para cambiar la esquina del rectángulo
+                            10.0), // radio para cambiar la esquina del rectángulo
                       ),
                     ),
                     side: MaterialStateProperty.all<BorderSide>(
-                      BorderSide(
-                          color: borderColor,
+                      const BorderSide(
+                          color: Colors.transparent,
                           width:
                               2.0), // Establece el color y el ancho del borde
                     ),
                   ),
                   onPressed: () {},
-                  child: Text(
+                  child: const Text(
                     'Enviar',
                     style: TextStyle(
-                        color: borderColor, fontWeight: FontWeight.bold),
+                        color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
