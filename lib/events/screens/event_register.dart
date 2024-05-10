@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:safeway/events/models/event.dart';
 import 'package:safeway/events/widgets/labels.dart';
 
 class EventForm extends StatefulWidget {
@@ -17,8 +18,10 @@ class _EventFormState extends State<EventForm> {
   final TextEditingController _controller = TextEditingController();
   final Color customColor = const Color(0xFF52B0A5);
 
-  var categoryList = ['categoria 1', 'categoria 2', 'categoria 3'];
+  List<String> errors = [];
 
+  var categoryList = ['categoria 1', 'categoria 2', 'categoria 3'];
+  var event = Event('', '');
   Future<void> _takePhoto() async {
     final pickedImage = await picker.pickImage(source: ImageSource.camera);
 
@@ -29,6 +32,12 @@ class _EventFormState extends State<EventForm> {
         _image = File(pickedImage.path);
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -175,7 +184,34 @@ class _EventFormState extends State<EventForm> {
                               2.0), // Establece el color y el ancho del borde
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_image == null ||
+                        _selectedCategory == null ||
+                        _controller.text.isEmpty) {
+                      // Aquí puedes mostrar un diálogo de error, una Snackbar o cualquier otro tipo de mensaje
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Error'),
+                            content: const Text(
+                                'Por favor completa todos los campos.'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text(
+                                  'OK',
+                                  style: TextStyle(color: customColor),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {}
+                  },
                   child: const Text(
                     'Enviar',
                     style: TextStyle(
