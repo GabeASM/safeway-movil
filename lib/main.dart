@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safeway/events/screens/event_register.dart';
+import 'package:safeway/global/geolocator/geo_widget.dart';
 import 'package:safeway/landing/screens/lading_screen.dart';
 
 // import 'package:google_fonts/google_fonts.dart';
@@ -24,7 +25,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        // theme: theme,
-        home: LandingScreen());
+      // theme: theme,
+      home: LandingScreen(),
+    );
   }
 }

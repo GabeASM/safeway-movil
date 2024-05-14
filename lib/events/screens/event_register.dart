@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:safeway/events/models/event.dart';
+import 'package:safeway/events/services/event_api_service.dart';
 import 'package:safeway/events/widgets/labels.dart';
 
 class EventForm extends StatefulWidget {
@@ -17,11 +18,8 @@ class _EventFormState extends State<EventForm> {
   final picker = ImagePicker();
   final TextEditingController _controller = TextEditingController();
   final Color customColor = const Color(0xFF52B0A5);
-
-  List<String> errors = [];
-
   var categoryList = ['categoria 1', 'categoria 2', 'categoria 3'];
-  var event = Event('', '');
+
   Future<void> _takePhoto() async {
     final pickedImage = await picker.pickImage(source: ImageSource.camera);
 
@@ -188,7 +186,6 @@ class _EventFormState extends State<EventForm> {
                     if (_image == null ||
                         _selectedCategory == null ||
                         _controller.text.isEmpty) {
-                      // Aquí puedes mostrar un diálogo de error, una Snackbar o cualquier otro tipo de mensaje
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -210,7 +207,12 @@ class _EventFormState extends State<EventForm> {
                           );
                         },
                       );
-                    } else {}
+                    } else {
+                      Event newEvent = Event(
+                          _selectedCategory!, _controller.text, 0, 0, _image!);
+                      var eventService = EventServiceApi();
+                      eventService.createEvent(newEvent);
+                    }
                   },
                   child: const Text(
                     'Enviar',
