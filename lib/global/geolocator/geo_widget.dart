@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LocationWidget extends StatefulWidget {
+  const LocationWidget({super.key});
+
   @override
   _LocationWidgetState createState() => _LocationWidgetState();
 }
@@ -13,7 +15,7 @@ class _LocationWidgetState extends State<LocationWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ubicación Actual'),
+        title: const Text('Ubicación Actual'),
       ),
       body: Center(
         child: Column(
@@ -22,13 +24,13 @@ class _LocationWidgetState extends State<LocationWidget> {
             _currentPosition != null
                 ? Text(
                     'Latitud: ${_currentPosition!.latitude}, Longitud: ${_currentPosition!.longitude}')
-                : Text('Ubicación no disponible'),
-            SizedBox(height: 20),
+                : const Text('Ubicación no disponible'),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 _getLocation();
               },
-              child: Text('Obtener Ubicación'),
+              child: const Text('Obtener Ubicación'),
             ),
           ],
         ),
@@ -47,14 +49,14 @@ class _LocationWidgetState extends State<LocationWidget> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Error'),
+            title: const Text('Error'),
             content: Text(e.toString()),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Cerrar'),
+                child: const Text('Cerrar'),
               ),
             ],
           );
