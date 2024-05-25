@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safeway/users/widgets/labels_users.dart';
 import 'package:safeway/users/widgets/logo.dart';
+import 'package:safeway/users/widgets/mail_field.dart';
 import 'package:safeway/users/widgets/password_field.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -27,22 +28,14 @@ class RegisterScreen extends StatelessWidget {
             child: LabelFormUser(text: 'Registro'),
           ),
           Padding(
+            // input del mail de usuario
             padding: const EdgeInsets.only(top: 40.0),
             child: SizedBox(
                 width: 300,
-                child: TextField(
-                  controller: _mailController,
-                  decoration: const InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.mail_outline,
-                      ),
-                      hintText: 'Direccion de correo',
-                      hintStyle: TextStyle(
-                        fontSize: 13.3,
-                      )),
-                )),
+                child: EmailFieldUser(mailController: _mailController)),
           ),
           Padding(
+            // Input de contraseña
             padding: const EdgeInsets.only(top: 30.0),
             child: SizedBox(
                 width: 300,
@@ -52,6 +45,7 @@ class RegisterScreen extends StatelessWidget {
                 )),
           ),
           Padding(
+            // input para la validacion de la contraseña
             padding: const EdgeInsets.only(top: 30.0),
             child: SizedBox(
                 width: 300,
@@ -61,6 +55,7 @@ class RegisterScreen extends StatelessWidget {
                 )),
           ),
           Padding(
+            // Boton de enviar formulario
             padding: const EdgeInsets.only(top: 50.0),
             child: SizedBox(
               width: 300,
@@ -91,6 +86,7 @@ class RegisterScreen extends StatelessWidget {
             ),
           ),
           Padding(
+            // Boton de inicio de sesion
             padding: const EdgeInsets.only(top: 20.0),
             child: SizedBox(
               width: 300,
