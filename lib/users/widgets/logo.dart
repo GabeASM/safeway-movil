@@ -7,7 +7,6 @@ class LogoSafeWay extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 230,
-      height: 90,
       child: Image.asset(
         'assets/SafeWayLogo.png', // Ruta de la imagen en los activos
         fit: BoxFit.fitHeight, // Ajusta la imagen al contenedor

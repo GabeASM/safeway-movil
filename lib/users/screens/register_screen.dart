@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:safeway/users/models/create_users.dart';
+import 'package:safeway/users/screens/register_username_screen.dart';
+import 'package:safeway/users/widgets/custom_user_button.dart';
 import 'package:safeway/users/widgets/labels_users.dart';
 import 'package:safeway/users/widgets/logo.dart';
 import 'package:safeway/users/widgets/mail_field.dart';
@@ -60,28 +63,29 @@ class RegisterScreen extends StatelessWidget {
             child: SizedBox(
               width: 300,
               height: 50,
-              child: TextButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(customColor),
-                  shape: MaterialStateProperty.all<OutlinedBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          10.0), // radio para cambiar la esquina del rectángulo
-                    ),
-                  ),
-                  side: MaterialStateProperty.all<BorderSide>(
-                    const BorderSide(
-                        color: Colors.transparent,
-                        width: 2.0), // Establece el color y el ancho del borde
-                  ),
-                ),
-                onPressed: () {},
-                child: const Text(
-                  'Registrarse',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.normal),
-                ),
+              child: CustomUserButton(
+                text: 'Siguiente',
+                onPressed: () {
+                  if (_passwordController.text !=
+                      _verifyPasswordController.text) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Las contraseñas no coinciden'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else {
+                    CreateUser user = CreateUser(
+                        _mailController.text, _passwordController.text);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (ctx) => UserNameRegister(
+                          user: user,
+                        ),
+                      ),
+                    );
+                  }
+                },
               ),
             ),
           ),

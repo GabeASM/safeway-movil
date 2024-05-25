@@ -1,6 +1,6 @@
 class CreateUser {
   CreateUser(this.email, this.password);
-
+  late String username;
   String email;
   String password;
 
