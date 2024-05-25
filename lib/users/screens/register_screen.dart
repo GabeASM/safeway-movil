@@ -57,7 +57,7 @@ class RegisterScreen extends StatelessWidget {
                 width: 300,
                 child: PasswordField(
                   controller: _verifyPasswordController,
-                  hintTextPassword: 'ConfirmarContraseña',
+                  hintTextPassword: 'Confirmar contraseña',
                 )),
           ),
           Padding(
