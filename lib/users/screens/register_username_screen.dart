@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safeway/users/models/create_users.dart';
+import 'package:safeway/users/services/user_api_service.dart';
 import 'package:safeway/users/widgets/custom_user_button.dart';
 import 'package:safeway/users/widgets/labels_users.dart';
 import 'package:safeway/users/widgets/logo.dart';
@@ -9,13 +10,34 @@ class UserNameRegister extends StatefulWidget {
   const UserNameRegister({super.key, required this.user});
 
   final CreateUser user;
-
   @override
   State<UserNameRegister> createState() => _UserNameRegisterState();
 }
 
 class _UserNameRegisterState extends State<UserNameRegister> {
   final TextEditingController userNameController = TextEditingController();
+  var userService = UserServiceApi();
+  bool _isLoading = false;
+
+  void _createUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    widget.user.username = userNameController.text;
+
+    try {
+      await userService.createUser(widget.user);
+      // Aquí puedes mostrar un mensaje de éxito si es necesario.
+    } catch (error) {
+      // Aquí puedes manejar el error y mostrar un mensaje si es necesario.
+      print('Error en la creación del usuario: $error');
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,15 +72,17 @@ class _UserNameRegisterState extends State<UserNameRegister> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 50.0),
-              child: SizedBox(
-                  width: 300,
-                  height: 50,
-                  child: CustomUserButton(
-                      text: 'Enviar',
-                      onPressed: () {
-                        widget.user.username = userNameController.text;
-                      })),
-            )
+              child: _isLoading
+                  ? const CircularProgressIndicator()
+                  : SizedBox(
+                      width: 300,
+                      height: 50,
+                      child: CustomUserButton(
+                        text: 'Enviar',
+                        onPressed: _createUser,
+                      ),
+                    ),
+            ),
           ],
         ),
       ),
