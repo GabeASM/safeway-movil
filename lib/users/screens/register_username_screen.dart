@@ -28,9 +28,7 @@ class _UserNameRegisterState extends State<UserNameRegister> {
 
     try {
       await userService.createUser(widget.user);
-      // Aquí puedes mostrar un mensaje de éxito si es necesario.
     } catch (error) {
-      // Aquí puedes manejar el error y mostrar un mensaje si es necesario.
       print('Error en la creación del usuario: $error');
     } finally {
       setState(() {

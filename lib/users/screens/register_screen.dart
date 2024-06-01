@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safeway/users/models/create_users.dart';
 import 'package:safeway/users/screens/register_username_screen.dart';
+import 'package:safeway/users/widgets/custom_transparent_user_button.dart';
 import 'package:safeway/users/widgets/custom_user_button.dart';
 import 'package:safeway/users/widgets/labels_users.dart';
 import 'package:safeway/users/widgets/logo.dart';
@@ -95,22 +96,9 @@ class RegisterScreen extends StatelessWidget {
             child: SizedBox(
               width: 300,
               height: 50,
-              child: TextButton(
-                style: ButtonStyle(
-                  overlayColor: MaterialStateProperty.all(Colors.grey),
-                  shape: MaterialStateProperty.all<OutlinedBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          10.0), // radio para cambiar la esquina del rectángulo
-                    ),
-                  ),
-                ),
+              child: CustomTransparentButton(
+                text: 'Iniciar sesion',
                 onPressed: () {},
-                child: const Text(
-                  'Iniciar sesion',
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.normal),
-                ),
               ),
             ),
           ),

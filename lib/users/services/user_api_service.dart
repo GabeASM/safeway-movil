@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:safeway/users/models/create_users.dart';
+import 'package:safeway/users/models/login_user.dart';
 
 class UserServiceApi {
   final Dio _dio = Dio();
@@ -19,6 +20,24 @@ class UserServiceApi {
 
       final response = await _dio.post('http://$ipBase:8080/usermsvc/create',
           data: postData);
+
+      print(response);
+      return response;
+    } catch (error) {
+      print('Error en el login: $error');
+      throw Exception('Error en la solicitud de crear usuarios: $error');
+    }
+  }
+
+  Future<dynamic> login(LoginUser user) async {
+    try {
+      Map<String, dynamic> postData = {
+        'mail': user.mail,
+        'password': user.password
+      };
+
+      final response =
+          await _dio.post('http://$ipBase:8080/login', data: postData);
 
       print(response);
       return response;
