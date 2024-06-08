@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:safeway/landing/screens/lading_screen.dart';
 import 'package:safeway/users/models/login_user.dart';
+import 'package:safeway/users/screens/register_screen.dart';
 import 'package:safeway/users/services/user_api_service.dart';
 import 'package:safeway/users/widgets/custom_transparent_user_button.dart';
 import 'package:safeway/users/widgets/custom_user_button.dart';
@@ -34,6 +36,15 @@ class _LoginScreenState extends State<LoginScreen> {
           mail: _mailController.text, password: _passwordController.text);
       try {
         await userService.login(loginUser);
+        // Si el login es exitoso, redirigir a LandingScreen
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (ctx) => LandingScreen()),
+          (Route<dynamic> route) => false,
+        );
+        // Mostrar mensaje de éxito en LandingScreen
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Inicio de sesión exitoso')),
+        );
       } catch (error) {
         _errorMessage = 'Error en la conexion :(';
         print('Error en la autenticacion del usuario: $error');
@@ -100,7 +111,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 300,
                   height: 50,
                   child: CustomTransparentButton(
-                      text: 'Registrarse', onPressed: () {})),
+                      text: 'Registrarse',
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (ctx) => RegisterScreen()),
+                        );
+                      })),
             )
           ],
         ),

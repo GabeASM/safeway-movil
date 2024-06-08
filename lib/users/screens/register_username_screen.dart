@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safeway/users/models/create_users.dart';
+import 'package:safeway/users/screens/login_screen.dart';
 import 'package:safeway/users/services/user_api_service.dart';
 import 'package:safeway/users/widgets/custom_user_button.dart';
 import 'package:safeway/users/widgets/labels_users.dart';
@@ -28,8 +29,25 @@ class _UserNameRegisterState extends State<UserNameRegister> {
 
     try {
       await userService.createUser(widget.user);
+      // Mostrar mensaje de éxito y redirigir a la página de inicio de sesión
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Usuario creado con éxito')),
+      );
+      // Espera un momento antes de redirigir
+      await Future.delayed(const Duration(seconds: 2));
+      Navigator.of(context)
+          .push(
+        MaterialPageRoute(builder: (ctx) => const LoginScreen()),
+      )
+          .then((_) {
+        Navigator.of(context)
+            .pop(); // Eliminar la pantalla de registro del stack
+      });
     } catch (error) {
       print('Error en la creación del usuario: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error en la creación del usuario: $error')),
+      );
     } finally {
       setState(() {
         _isLoading = false;

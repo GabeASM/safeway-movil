@@ -18,8 +18,8 @@ class UserServiceApi {
         'password': user.password
       };
 
-      final response = await _dio.post('http://$ipBase:8080/usermsvc/create',
-          data: postData);
+      final response =
+          await _dio.post('http://$ipBase:8080/auth/register', data: postData);
 
       print(response);
       return response;
@@ -37,7 +37,7 @@ class UserServiceApi {
       };
 
       final response =
-          await _dio.post('http://$ipBase:8080/login', data: postData);
+          await _dio.post('http://$ipBase:8080/auth/login', data: postData);
 
       print(response);
       return response;

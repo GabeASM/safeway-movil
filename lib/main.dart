@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:safeway/landing/screens/lading_screen.dart';
 import 'package:safeway/users/screens/login_screen.dart';
 import 'package:safeway/users/screens/register_screen.dart';
 
@@ -25,7 +26,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // theme: theme,
-      home: LoginScreen(),
+      home: LandingScreen(),
     );
   }
 }
