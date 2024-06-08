@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import '../globals_user.dart' as globals;
 import 'package:safeway/users/models/create_users.dart';
 import 'package:safeway/users/models/login_user.dart';
+import 'package:safeway/users/models/user_logged.dart';
 
 class UserServiceApi {
   final Dio _dio = Dio();
@@ -22,6 +24,7 @@ class UserServiceApi {
           await _dio.post('http://$ipBase:8080/auth/register', data: postData);
 
       print(response);
+
       return response;
     } catch (error) {
       print('Error en el login: $error');
@@ -38,6 +41,13 @@ class UserServiceApi {
 
       final response =
           await _dio.post('http://$ipBase:8080/auth/login', data: postData);
+
+      Map<String, dynamic> jsonMap = response.data;
+      LoginResponse loginResponse = LoginResponse.fromJson(jsonMap);
+
+      if (loginResponse.token.isNotEmpty) {
+        globals.isLoggedIn = true;
+      }
 
       print(response);
       return response;

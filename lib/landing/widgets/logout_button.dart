@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:safeway/landing/screens/lading_screen.dart';
 import 'package:safeway/users/screens/login_screen.dart';
+import '../../users/globals_user.dart' as global;
 
 class CustomLogOutButton extends StatelessWidget {
   final Color customColorLogOut = const Color(0xFFF24747);
@@ -72,7 +74,16 @@ class CustomLogOutButton extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        global.isLoggedIn = false;
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (ctx) => const LandingScreen()),
+          (Route<dynamic> route) => false,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Ha cerrado sesion')),
+        );
+      },
       child: const Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,

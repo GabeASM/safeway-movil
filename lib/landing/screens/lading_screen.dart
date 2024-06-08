@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safeway/landing/widgets/drawer_aux.dart';
 import 'package:safeway/landing/widgets/floating_button.dart';
+import 'package:safeway/users/globals_user.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
@@ -15,8 +16,8 @@ class LandingScreen extends StatelessWidget {
         ),
         backgroundColor: const Color(0xFF121416),
       ),
-      drawer: const DrawerAux(
-        isLoggedIn: false,
+      drawer: DrawerAux(
+        isLoggedIn: isLoggedIn,
       ),
       body: const Center(child: Text('mapa')),
       floatingActionButton: const AddEventFloatingButton(),
