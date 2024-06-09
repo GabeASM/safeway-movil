@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../globals_user.dart' as globals;
+import '../../global/globals_user.dart' as globals;
 import 'package:safeway/users/models/create_users.dart';
 import 'package:safeway/users/models/login_user.dart';
 import 'package:safeway/users/models/user_logged.dart';

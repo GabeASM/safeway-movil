@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safeway/landing/screens/lading_screen.dart';
 import 'package:safeway/users/screens/login_screen.dart';
-import '../../users/globals_user.dart' as global;
+import '../../global/globals_user.dart' as global;
 
 class CustomLogOutButton extends StatelessWidget {
   final Color customColorLogOut = const Color(0xFFF24747);
