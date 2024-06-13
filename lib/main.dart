@@ -54,7 +54,7 @@ void main() async {
       var position = await _determinePosition();
       socket.emit('sendLocation',
           {'latitude': position.latitude, 'longitude': position.longitude});
-      await Future.delayed(const Duration(seconds: 5));
+      await Future.delayed(const Duration(seconds: 120));
     }
   } catch (e) {
     print('Error durante la inicialización: $e');

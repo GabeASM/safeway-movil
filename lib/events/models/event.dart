@@ -3,7 +3,7 @@ import 'dart:io';
 class Event {
   Event(this.category, this.description, this.latitude, this.longitude,
       this.image);
-  File image;
+  String image;
   String category;
   String description;
   double latitude;
