@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../global/globals_user.dart' as globals;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:safeway/users/models/create_users.dart';
 import 'package:safeway/users/models/login_user.dart';
 import 'package:safeway/users/models/user_logged.dart';
@@ -46,7 +46,9 @@ class UserServiceApi {
       LoginResponse loginResponse = LoginResponse.fromJson(jsonMap);
 
       if (loginResponse.token.isNotEmpty) {
-        globals.isLoggedIn = true;
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('jwt_token', loginResponse.token);
+        await prefs.setString('user_name', loginResponse.user.username);
       }
 
       print(response);

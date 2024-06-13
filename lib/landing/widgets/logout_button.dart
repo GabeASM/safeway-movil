@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:safeway/landing/screens/lading_screen.dart';
+
 import 'package:safeway/users/screens/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../global/globals_user.dart' as global;
 
 class CustomLogOutButton extends StatelessWidget {
@@ -21,14 +23,13 @@ class CustomLogOutButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all<Color>(customColorLogIn),
           shape: MaterialStateProperty.all<OutlinedBorder>(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                  10.0), // radio para cambiar la esquina del rectángulo
+              borderRadius: BorderRadius.circular(10.0),
             ),
           ),
           side: MaterialStateProperty.all<BorderSide>(
             const BorderSide(
               color: Colors.transparent,
-              width: 2.0, // Establece el color y el ancho del borde
+              width: 2.0,
             ),
           ),
         ),
@@ -45,9 +46,9 @@ class CustomLogOutButton extends StatelessWidget {
               Icons.login,
               color: Colors.white,
             ),
-            SizedBox(width: 8), // Espacio entre el icono y el texto
+            SizedBox(width: 8),
             Text(
-              'Iniciar sesion',
+              'Iniciar sesión',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -63,25 +64,27 @@ class CustomLogOutButton extends StatelessWidget {
         backgroundColor: MaterialStateProperty.all<Color>(customColorLogOut),
         shape: MaterialStateProperty.all<OutlinedBorder>(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-                10.0), // radio para cambiar la esquina del rectángulo
+            borderRadius: BorderRadius.circular(10.0),
           ),
         ),
         side: MaterialStateProperty.all<BorderSide>(
           const BorderSide(
             color: Colors.transparent,
-            width: 2.0, // Establece el color y el ancho del borde
+            width: 2.0,
           ),
         ),
       ),
-      onPressed: () {
+      onPressed: () async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.remove('jwt_token');
+        await prefs.remove('user_name');
         global.isLoggedIn = false;
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (ctx) => const LandingScreen()),
           (Route<dynamic> route) => false,
         );
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Ha cerrado sesion')),
+          const SnackBar(content: Text('Ha cerrado sesión')),
         );
       },
       child: const Row(
@@ -92,9 +95,9 @@ class CustomLogOutButton extends StatelessWidget {
             Icons.logout,
             color: Colors.white,
           ),
-          SizedBox(width: 8), // Espacio entre el icono y el texto
+          SizedBox(width: 8),
           Text(
-            'Cerrar sesion',
+            'Cerrar sesión',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,

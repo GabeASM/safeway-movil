@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http_parser/http_parser.dart';

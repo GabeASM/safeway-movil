@@ -12,7 +12,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Container(
         color: Colors.blue,
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        height: 80.0, // Puedes ajustar la altura según tu necesidad
+        height: 80.0,
         child: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.menu),
