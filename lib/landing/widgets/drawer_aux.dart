@@ -84,7 +84,8 @@ class _DrawerAuxState extends State<DrawerAux> {
               onTap: () {
                 if (isLoggedIn) {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (ctx) => MisEventosScreen()),
+                    MaterialPageRoute(
+                        builder: (ctx) => const MisEventosScreen()),
                   );
                 } else {
                   Navigator.of(context).push(

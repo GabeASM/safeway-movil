@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safeway/events/models/received_events.dart';
 import 'package:safeway/events/services/event_api_service.dart';
+import 'package:safeway/landing/screens/detail_event.dart';
 import 'package:safeway/landing/widgets/inkwell_event.dart';
 
 class MisEventosScreen extends StatefulWidget {
@@ -54,7 +55,12 @@ class MisEventosScreenState extends State<MisEventosScreen> {
                 return InkwellEvent(
                   event: event,
                   onSelectEvent: () {
-                    // Implementa la acción a realizar cuando se selecciona un evento
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (ctx) => DetalleEventoScreen(
+                                idEvent: event.id,
+                              )),
+                    );
                     print('Evento seleccionado: ${event.category}');
                   },
                 );

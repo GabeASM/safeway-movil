@@ -140,4 +140,36 @@ class EventServiceApi {
       throw Exception('Error en la solicitud de obtener eventos: $error');
     }
   }
+
+  Future<EventReceived> getEventById(int userId) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('jwt_token');
+
+      if (token == null) {
+        throw Exception('Usuario no autenticado');
+      }
+
+      final response = await Dio().get(
+        'http://$ipBase:8080/eventmsvc/$userId',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        var jsonResponse = response.data;
+        var event = EventReceived.fromJson(jsonResponse);
+        print('Este es el evento del usuario -> $event');
+        return event; // Aquí se retorna el objeto event, no response.data
+      } else {
+        throw Exception('Error al obtener el evento: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error al obtener el evento: $error');
+      throw Exception('Error en la solicitud de obtener evento: $error');
+    }
+  }
 }
