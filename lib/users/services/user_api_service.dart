@@ -3,11 +3,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:safeway/users/models/create_users.dart';
 import 'package:safeway/users/models/login_user.dart';
 import 'package:safeway/users/models/user_logged.dart';
+import 'package:safeway/global/global_network.dart' as network;
 
 class UserServiceApi {
   final Dio _dio = Dio();
-  final String baseUrl = 'http://192.168.1.172:8080/';
-  final String ipBase = '192.168.1.172';
+  final String baseUrl = 'http://${network.ipNetwork}:8080/';
+  final String ipBase = network.ipNetwork;
   UserServiceApi() {
     _dio.options.baseUrl = baseUrl;
   }

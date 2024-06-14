@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:safeway/landing/screens/lading_screen.dart';
 
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:safeway/global/global_network.dart' as network;
 
 Future<Position> _determinePosition() async {
   bool serviceEnabled;
@@ -33,7 +34,7 @@ void main() async {
 
   try {
     runApp(const App());
-    IO.Socket socket = IO.io('http://192.168.1.172:8081',
+    IO.Socket socket = IO.io('http://${network.ipNetwork}:8081',
         IO.OptionBuilder().setTransports(['websocket']).build());
 
     // Escuchar eventos de conexión y mensajes

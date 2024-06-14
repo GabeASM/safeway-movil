@@ -7,11 +7,12 @@ import 'package:safeway/events/models/event.dart';
 import 'package:safeway/events/models/received_events.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
+import 'package:safeway/global/global_network.dart' as network;
 
 class EventServiceApi {
   final Dio _dio = Dio();
-  final String baseUrl = 'http://192.168.1.172:8080/';
-  final String ipBase = '192.168.1.172';
+  final String baseUrl = 'http://${network.ipNetwork}:8080/';
+  final String ipBase = network.ipNetwork;
   EventServiceApi() {
     _dio.options.baseUrl = baseUrl;
   }
@@ -86,7 +87,7 @@ class EventServiceApi {
 
     print('unique file -> $uniqueFileName');
 
-    var url = 'http://192.168.1.172:9000/safeway-images/$uniqueFileName';
+    var url = 'http://$ipBase:9000/safeway-images/$uniqueFileName';
     try {
       FormData formData = FormData.fromMap({
         'file': await MultipartFile.fromFile(
