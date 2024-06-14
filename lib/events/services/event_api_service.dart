@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:safeway/events/models/event.dart';
+import 'package:safeway/events/models/received_events.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 class EventServiceApi {
@@ -16,6 +18,13 @@ class EventServiceApi {
 
   Future<dynamic> createEvent(Event createEvent) async {
     try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('jwt_token');
+
+      if (token == null) {
+        throw Exception('Usuario no autenticado');
+      }
+
       Position position = await _determinePosition();
 
       Map<String, dynamic> newEvent = {
@@ -23,17 +32,25 @@ class EventServiceApi {
         'category': createEvent.category,
         'latitude': position.latitude,
         'longitude': position.longitude,
-        'description': createEvent.description
+        'description': createEvent.description,
       };
-      print('se esta creando este nuevo evento');
+      print('se está creando este nuevo evento');
       print(newEvent);
 
-      final response =
-          await _dio.post('http://$ipBase:8080/eventmsvc', data: newEvent);
-      print("el evento fue creado -> $response");
+      final response = await _dio.post(
+        'http://$ipBase:8080/eventmsvc',
+        data: newEvent,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      print("El evento fue creado -> $response");
       return response;
     } catch (error) {
-      print('Error en la solicitud post: $error');
+      print('Error al crear el evento: $error');
+      throw Exception('Error en la solicitud de crear evento: $error');
     }
   }
 
@@ -90,6 +107,37 @@ class EventServiceApi {
     } catch (e) {
       print('Error durante la carga de la imagen: $e');
       return null;
+    }
+  }
+
+  Future<List<EventReceived>> getUserEvents() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('jwt_token');
+
+      if (token == null) {
+        throw Exception('Usuario no autenticado');
+      }
+
+      final response = await _dio.get(
+        'http://$ipBase:8080/eventmsvc/event',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      List<dynamic> data = response.data;
+      List<EventReceived> events =
+          data.map((json) => EventReceived.fromJson(json)).toList();
+
+      print('estos son los eventos del usuario -> $events');
+      print("Eventos recibidos: $events");
+      return events;
+    } catch (error) {
+      print('Error al obtener los eventos: $error');
+      throw Exception('Error en la solicitud de obtener eventos: $error');
     }
   }
 }

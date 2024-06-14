@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:safeway/landing/screens/user_events.dart';
 import 'package:safeway/landing/widgets/logout_button.dart';
+import 'package:safeway/users/screens/login_screen.dart';
 import 'package:safeway/users/widgets/logo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -79,7 +81,17 @@ class _DrawerAuxState extends State<DrawerAux> {
               leading: const Icon(Icons.event_available, color: Colors.white),
               title: const Text('Mis eventos',
                   style: TextStyle(fontSize: 18, color: Colors.white)),
-              onTap: () {},
+              onTap: () {
+                if (isLoggedIn) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (ctx) => MisEventosScreen()),
+                  );
+                } else {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (ctx) => const LoginScreen()),
+                  );
+                }
+              },
             ),
             ListTile(
               leading: const Icon(Icons.settings, color: Colors.white),

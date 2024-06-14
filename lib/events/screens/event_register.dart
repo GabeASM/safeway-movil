@@ -20,7 +20,12 @@ class _EventFormState extends State<EventForm> {
   final picker = ImagePicker();
   final TextEditingController _controller = TextEditingController();
   final Color customColor = const Color(0xFF52B0A5);
-  var categoryList = ['categoria 1', 'categoria 2', 'categoria 3'];
+  var categoryList = [
+    'Reparación de vía',
+    'Evento peligroso',
+    'Inundación de calle',
+    'Mala iluminación'
+  ];
   bool _isLoading = false;
   final Dio _dio = Dio();
 

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 class Event {
   Event(this.category, this.description, this.latitude, this.longitude,
       this.image);

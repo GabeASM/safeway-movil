@@ -44,7 +44,6 @@ void main() async {
     socket.on('notifications', (data) {
       print('Mensaje recibido: $data');
     });
-
     socket.on('disconnect', (_) {
       print('Desconectado del servidor de sockets');
     });
@@ -54,7 +53,7 @@ void main() async {
       var position = await _determinePosition();
       socket.emit('sendLocation',
           {'latitude': position.latitude, 'longitude': position.longitude});
-      await Future.delayed(const Duration(seconds: 120));
+      await Future.delayed(const Duration(seconds: 30));
     }
   } catch (e) {
     print('Error durante la inicialización: $e');
