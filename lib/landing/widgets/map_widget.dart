@@ -23,6 +23,9 @@ class MapWidget extends StatefulWidget {
 class _MapWidgetState extends State<MapWidget> {
   List<Marker> marcadores = [];
   List<Marker> _eventMarkers = [];
+  
+
+  
   /*Future<void> obtenerEventosAMarcadores() async {
     try {
       var eventos = await EventClient().getEvent();
@@ -108,7 +111,7 @@ class _MapWidgetState extends State<MapWidget> {
           userAgentPackageName: 'com.safeway2.safeway2',
         ),
         CurrentLocationLayer(
-         alignDirectionOnUpdate: AlignOnUpdate.always,
+         followOnLocationUpdate: FollowOnLocationUpdate.always,
           style: LocationMarkerStyle(marker: DefaultLocationMarker()),
         ),
         MarkerLayer(
