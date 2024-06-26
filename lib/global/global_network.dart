@@ -1,3 +1,3 @@
 library globals;
 
-const ipNetwork = '172.27.43.209';
+const ipNetwork = '192.168.1.172';

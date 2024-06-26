@@ -81,15 +81,15 @@ class _LandingScreenState extends State<LandingScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Encender GPS'),
-          content: Text(
+          title: const Text('Encender GPS'),
+          content: const Text(
               'Por favor, encienda el GPS en la configuración del dispositivo para iniciar la aplicación.'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Cancelar'),
+              child: const Text('Cancelar'),
             ),
             TextButton(
               onPressed: () {
@@ -97,7 +97,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 Geolocator
                     .openAppSettings(); // Abre la configuración del dispositivo
               },
-              child: Text('Ir a configuración'),
+              child: const Text('Ir a configuración'),
             ),
           ],
         );
@@ -127,7 +127,7 @@ class _LandingScreenState extends State<LandingScreen> {
             child: SafeArea(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 6, 16, 24),
+                  color: const Color.fromARGB(255, 6, 16, 24),
                   borderRadius: BorderRadius.circular(999),
                 ),
                 padding: const EdgeInsets.all(8),

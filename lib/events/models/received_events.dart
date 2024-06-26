@@ -31,4 +31,8 @@ class EventReceived {
       userId: json['userId'],
     );
   }
+
+  static List<EventReceived> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((json) => EventReceived.fromJson(json)).toList();
+  }
 }

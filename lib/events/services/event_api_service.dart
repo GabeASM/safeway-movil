@@ -173,4 +173,25 @@ class EventServiceApi {
       throw Exception('Error en la solicitud de obtener evento: $error');
     }
   }
+
+  Future<List<EventReceived>> getAllEvents() async {
+    try {
+      final response = await Dio().get(
+        'http://$ipBase:8080/eventmsvc/',
+      );
+
+      if (response.statusCode == 200) {
+        var jsonResponse = response.data as List;
+        List<EventReceived> events = EventReceived.fromJsonList(jsonResponse);
+        print('Eventos recibidos: $events');
+
+        return events;
+      } else {
+        throw Exception('Error al obtener los eventos: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error al obtener los eventos: $error');
+      throw Exception('Error en la solicitud de obtener eventos: $error');
+    }
+  }
 }
