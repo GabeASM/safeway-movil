@@ -1,9 +1,11 @@
+import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:safeway/events/models/received_events.dart';
+import 'package:safeway/events/screens/event_detail_map.dart';
 import 'package:safeway/events/services/event_api_service.dart';
 
 class MapWidget extends StatefulWidget {
@@ -24,6 +26,7 @@ class MapWidget extends StatefulWidget {
 
 class _MapWidgetState extends State<MapWidget> {
   List<Marker> _eventMarkers = [];
+  List<EventReceived> eventos = [];
 
   @override
   void initState() {
@@ -34,7 +37,7 @@ class _MapWidgetState extends State<MapWidget> {
   Future<void> obtenerEventosAMarcadores() async {
     try {
       var service = EventServiceApi();
-      List<EventReceived> eventos = await service.getAllEvents();
+      eventos = await service.getAllEvents();
 
       List<Marker> marcadores = [];
       for (var evento in eventos) {
@@ -54,14 +57,13 @@ class _MapWidgetState extends State<MapWidget> {
             markerColor = const Color(0xFF52B0A5);
             break;
           default:
-            markerColor = Colors.lightGreen
-                .shade600; // Color por defecto para eventos desconocidos
+            markerColor = Colors.lightGreen.shade600;
             break;
         }
 
         var marcador = Marker(
-          width: 30.0,
-          height: 30.0,
+          width: 300.0,
+          height: 300.0,
           point: LatLng(latitud, longitud),
           child: Container(
             decoration: BoxDecoration(
@@ -70,6 +72,7 @@ class _MapWidgetState extends State<MapWidget> {
             ),
             child: const Icon(
               Icons.location_on,
+              size: 100,
               color: Colors.white,
             ),
           ),
@@ -113,8 +116,20 @@ class _MapWidgetState extends State<MapWidget> {
           followOnLocationUpdate: FollowOnLocationUpdate.always,
           style: const LocationMarkerStyle(marker: DefaultLocationMarker()),
         ),
-        MarkerLayer(
-          markers: _eventMarkers,
+        PopupMarkerLayer(
+          options: PopupMarkerLayerOptions(
+            markers: _eventMarkers,
+            popupController: PopupController(),
+            popupDisplayOptions: PopupDisplayOptions(
+              builder: (BuildContext context, Marker marker) {
+                var evento = eventos.firstWhere((e) =>
+                    e.latitude == marker.point.latitude &&
+                    e.longitude == marker.point.longitude);
+
+                return EventDetailOnMapScreen(eventId: evento.id);
+              },
+            ),
+          ),
         ),
       ],
     );
